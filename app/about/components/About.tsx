@@ -10,6 +10,7 @@ import BeachImage from "../../../public/assets/beach.png";
 import MountainImage from "../../../public/assets/mountain.png";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "../styles/swiper-custom.css"
+import React from "react";
 
 export function About() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export function About() {
           Travel Master
         </h1>
         <p className="text-center pt-6 text-[#36485C] lg:text-[18px] lg:leading-7">
-          Welcome to our travel itinerary generator! Plan your dream vacation effortlessly by simply entering your departure and arrival dates, along with your desired location. Our innovative service powered by OpenAI creates personalized itineraries that include must-visit attractions, delicious dining options, and real-time weather updates. Whether you're exploring new destinations or revisiting favorites, let us help you make the most of your travel experience. Get started now and embark on unforgettable adventures!
+          Plan your dream vacation effortlessly by simply entering your departure and arrival dates, along with your desired location. Our innovative service powered by OpenAI creates personalized itineraries that include must-visit attractions, delicious dining options, and real-time weather updates. Whether you're exploring new destinations or revisiting favorites, let us help you make the most of your travel experience. Get started now and embark on unforgettable adventures!
         </p>
 
         <div className="flex w-full pt-8 justify-center gap-x-6">

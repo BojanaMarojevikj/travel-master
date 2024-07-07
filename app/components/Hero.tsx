@@ -1,9 +1,11 @@
-"use client"
+"use client";
 import { useRouter } from "next/navigation";
+import React from "react";
+import ReactTypingEffect from 'react-typing-effect';
 
 export function Hero() {
   const router = useRouter();
-  
+
   const handleTryNowClick = () => {
     router.push('/generate-itinerary');
   };
@@ -14,9 +16,29 @@ export function Hero() {
         <h1 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
           Travel Master
         </h1>
-        <p className="text-center pt-6 text-[#36485C] lg:text-[18px] lg:leading-7">
-          Welcome to our travel itinerary generator! Plan your dream vacation effortlessly by simply entering your departure and arrival dates, along with your desired location. Our innovative service powered by OpenAI creates personalized itineraries that include must-visit attractions, delicious dining options, and real-time weather updates. Whether you're exploring new destinations or revisiting favorites, let us help you make the most of your travel experience. Get started now and embark on unforgettable adventures!
-        </p>
+        <div className="text-center pt-6 text-[#36485C] lg:text-[18px] lg:leading-7">
+          <ReactTypingEffect
+            text={[
+              "Welcome to our travel itinerary generator! Get started now and embark on unforgettable adventures!"
+            ]}
+            speed={50}
+            eraseSpeed={0}
+            typingDelay={200}
+            eraseDelay={1000000}
+            cursor={"|"}
+            displayTextRenderer={(text, i) => {
+              return (
+                <p>
+                  {text.split('').map((char, index) => {
+                    return (
+                      <span key={index}>{char}</span>
+                    );
+                  })}
+                </p>
+              );
+            }}
+          />
+        </div>
 
         <div className="flex w-full pt-8 justify-center gap-x-6">
           <button
@@ -27,7 +49,6 @@ export function Hero() {
           </button>
         </div>
       </div>
-
     </div>
   );
 }
