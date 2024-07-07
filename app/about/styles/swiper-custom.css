@@ -1,0 +1,9 @@
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ffffff; 
+  border-radius: 50%; 
+}
+
+.swiper-pagination-bullet {
+    background-color: #ffffff;
+}
