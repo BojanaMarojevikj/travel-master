@@ -1,17 +1,20 @@
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import React from 'react';
+import {Country} from '../../model/models'
+import Select from 'react-select';
 
 
 export default function TravelForm() {
   const router = useRouter();
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
-  const [destination, setDestination] = useState<string>('');
   const [cities, setCities] = useState<string[]>([]);
-  const [countries, setCountries] = useState<string[]>([]);
-  const [selectedCity, setSelectedCity] = useState<string>('');
-  const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const [countries, setCountries] = useState<Country[]>([]); 
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false); 
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,13 +26,13 @@ export default function TravelForm() {
       try {
         const response = await fetch('https://restcountries.com/v3.1/all');
         const data = await response.json();
-        const sortedCountries = data.sort((a: { name: { common: string; }; }, b: { name: { common: any; }; }) => a.name.common.localeCompare(b.name.common));
+        const sortedCountries = data.sort((a: Country, b: Country) => a.name.common.localeCompare(b.name.common));
         setCountries(sortedCountries);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
     };
-  
+
     fetchCountries();
   }, []);
 
@@ -45,12 +48,17 @@ export default function TravelForm() {
             body: JSON.stringify({ country: selectedCountry }),
           });
           const data = await response.json();
-          setCities(data.data); 
+          if (data.data && data.data.length > 0) {
+            setCities(data.data);
+          } else {
+            setCities([]);
+            setShowModal(true); 
+          }
         } catch (error) {
           console.error('Error fetching cities:', error);
         }
       };
-  
+
       fetchCities();
     } else {
       setCities([]);
@@ -59,9 +67,9 @@ export default function TravelForm() {
 
   return (
     <div className="pt-4 lg:pt-10">
-        <h2 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
-              Enter Your Travel Information
-        </h2>
+      <h2 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
+        Enter Your Travel Information
+      </h2>
       <form className="bg-white rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
         <div className="flex flex-row gap-4 mb-4">
           <div className="w-1/4">
@@ -87,36 +95,24 @@ export default function TravelForm() {
           
           <div className="w-1/4">
             <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
-            <select
-              className="border border-gray-300 rounded px-3 py-2 w-full"
-              value={selectedCountry}
-              onChange={(e) => setSelectedCountry(e.target.value)}
-              required
-            >
-              <option value="">Select Country</option>
-              {countries.map((country) => (
-                <option key={country.name.common} value={country.name.common}>
-                  {country.name.common}
-                </option>
-              ))}
-            </select>
+            <Select
+              options={countries.map(country => ({ value: country.name.common, label: country.name.common }))}
+              onChange={(option) => setSelectedCountry(option?.value || null)}
+              isClearable
+              placeholder="Select Country"
+              className="w-full"
+            />
           </div>
 
           <div className="w-1/4">
             <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
-            <select
-              className="border border-gray-300 rounded px-3 py-2 w-full"
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              required
-            >
-              <option value="">Select City</option>
-              {cities.map((city) => (
-                <option key={city} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
+            <Select
+              options={cities.map(city => ({ value: city, label: city }))}
+              onChange={(option) => setSelectedCity(option?.value || null)}
+              isClearable
+              placeholder="Select City"
+              className="w-full"
+            />
           </div>
 
         </div>
@@ -130,6 +126,22 @@ export default function TravelForm() {
           </button>
         </div>
       </form>
+
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-black opacity-50 w-full h-full absolute"></div>
+          <div className="bg-white p-6 rounded shadow-lg z-10 flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-4">No Cities Found</h2>
+            <p>Sorry, no cities were found for the selected country.</p>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4"
+              onClick={() => setShowModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
