@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import {Country} from '../../model/models'
 import Select from 'react-select';
+import ExampleCards from './ExampleCards';
 
 
 export default function TravelForm() {
@@ -18,7 +19,7 @@ export default function TravelForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/itinerary?startDate=${startDate}&endDate=${endDate}&destination=${destination}`);
+    router.push(`/itinerary?startDate=${startDate}&endDate=${endDate}`);
   };
 
   useEffect(() => {
@@ -142,6 +143,8 @@ export default function TravelForm() {
           </div>
         </div>
       )}
+
+      <ExampleCards/>
     </div>
   );
 }
