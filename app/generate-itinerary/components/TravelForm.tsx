@@ -2,24 +2,29 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import {Country} from '../../model/models'
+import { Country } from '../../model/models';
 import Select from 'react-select';
 import ExampleCards from './ExampleCards';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import Stack from '@mui/material/Stack';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
 export default function TravelForm() {
   const router = useRouter();
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
+  const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [cities, setCities] = useState<string[]>([]);
-  const [countries, setCountries] = useState<Country[]>([]); 
+  const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false); 
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/itinerary?startDate=${startDate}&endDate=${endDate}`);
+    router.push(`/itinerary?startDate=${startDate?.format('YYYY-MM-DD')}&endDate=${endDate?.format('YYYY-MM-DD')}`);
   };
 
   useEffect(() => {
@@ -53,7 +58,7 @@ export default function TravelForm() {
             setCities(data.data);
           } else {
             setCities([]);
-            setShowModal(true); 
+            setShowModal(true);
           }
         } catch (error) {
           console.error('Error fetching cities:', error);
@@ -75,25 +80,81 @@ export default function TravelForm() {
         <div className="flex flex-row gap-4 mb-4">
           <div className="w-1/4">
             <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
-            <input
-              type="date"
-              className="border border-gray-300 rounded px-3 py-2 w-full"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              required
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Stack spacing={3}>
+                <DatePicker
+                  format="MM/DD/YYYY"
+                  value={startDate}
+                  onChange={(newValue: Dayjs | null) => setStartDate(newValue ? newValue.startOf('day') : null)}
+                  slotProps={
+                    {
+                      layout:{
+                        sx: {}
+                      },
+                      textField: {
+                        size: "small",
+                        sx: {
+                          '& label': { color: '#ABABAB', fontFamily: '__Poppins_7ef1e4' },
+                          '& label.Mui-focused': { color: '#4DCCD6', fontFamily: '__Poppins_7ef1e4' },
+                          '& .MuiInput-underline:after': { borderBottomColor: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                          '& .MuiOutlinedInput-root': {
+                            '& fieldset': { border: '0.5px solid #E8E8E8', boxShadow: '0px 1px 1px 0px rgba(0, 0, 0, 0.06)', fontFamily: '__Poppins_7ef1e4' },
+                            '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                            '&.Mui-focused fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                          },
+                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4'  },
+                          '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
+                          '& .MuiInputBase-root': { fontFamily: '__Poppins_7ef1e4' },
+                          '% .MuiPickersCalendarHeader-label': { fontFamily: '__Poppins_7ef1e4' },
+                          width: '100%',
+                        }
+                      }
+                    }
+                  }
+
+                />
+              </Stack>
+            </LocalizationProvider>
           </div>
           <div className="w-1/4">
             <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
-            <input
-              type="date"
-              className="border border-gray-300 rounded px-3 py-2 w-full"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Stack spacing={3}>
+                <DatePicker
+                  format="MM/DD/YYYY"
+                  value={endDate}
+                  onChange={(newValue: Dayjs | null) => setEndDate(newValue ? newValue.startOf('day') : null)}
+                  slotProps={
+                    {
+                      layout:{
+                        sx: {
+                          
+                        }
+                      },
+                      textField: {
+                        size: "small",
+                        sx: {
+                          '& label': { color: '#ABABAB', fontFamily: '__Poppins_7ef1e4' },
+                          '& label.Mui-focused': { color: '#4DCCD6', fontFamily: '__Poppins_7ef1e4' },
+                          '& .MuiInput-underline:after': { borderBottomColor: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                          '& .MuiOutlinedInput-root': {
+                            '& fieldset': { border: '0.5px solid #E8E8E8', boxShadow: '0px 1px 1px 0px rgba(0, 0, 0, 0.06)', fontFamily: '__Poppins_7ef1e4' },
+                            '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                            '&.Mui-focused fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                          },
+                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4'  },
+                          '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
+                          '& .MuiInputBase-root': { fontFamily: '__Poppins_7ef1e4' },
+                          width: '100%',
+                        }
+                      }
+                    }
+                  }
+                />
+              </Stack>
+            </LocalizationProvider>
           </div>
-          
+
           <div className="w-1/4">
             <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
             <Select
@@ -115,7 +176,6 @@ export default function TravelForm() {
               className="w-full"
             />
           </div>
-
         </div>
 
         <div className="flex items-center justify-center">
@@ -144,7 +204,7 @@ export default function TravelForm() {
         </div>
       )}
 
-      <ExampleCards/>
+      <ExampleCards />
     </div>
   );
 }
