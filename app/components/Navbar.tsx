@@ -7,7 +7,7 @@ import Link from "next/link";
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
-  { name: "Generate Itinerary", path: "/generate-itinerary"}
+  { name: "Generate Itinerary", path: "/generate-itinerary" }
 ];
 
 export function Navbar() {
@@ -15,33 +15,32 @@ export function Navbar() {
     <div className="flex bg-blue-100 justify-center items-center">
       <nav className="flex w-full items-center justify-between px-[20px] py-[16px] lg:container lg:px-20 bg-blue-100">
         <div className="flex items-center">
-          <Image src={Logo} alt="Logo" className="h-[4vh] w-auto"/>
-
-          <div className="hidden lg:flex pl-[74px] gap-x-[56px]">
+          <Image src={Logo} alt="Logo" className="h-[4vh] w-auto" />
+          <div className="hidden lg:flex pl-[56px] gap-x-[56px]">
             {navLinks.map((item, index) => (
-              <Link href={item.path} key={index} className="text-[#36485C] font-medium hover:text-blue-600">
-                <p className="hover:shadow-none">
-                 {item.name}
+              <Link href={item.path} key={index} className="text-[#36485C] font-medium hover:text-blue-500">
+                <p className="hover:shadow-none hover:border-b-5 hover:border-blue-500 hover:font-semibold">
+                  {item.name}
                 </p>
-            </Link>
+              </Link>
             ))}
           </div>
         </div>
 
         <div className="flex gap-x-5">
-        <p className="hidden lg:block font-medium text-[#36485C] pr-[56px]">
-          Register
-        </p>
+          <p className="hidden lg:block font-medium text-[#36485C] pr-[56px]">
+            Register
+          </p>
 
-        <div className="flex items-center gap-x-2">
-          <Image src={User} alt="User Profile" />
-          <span className="hidden font-medium text-[#36485C] lg:block">
-            Sign in
-          </span>
+          <div className="flex items-center gap-x-2">
+            <Image src={User} alt="User Profile" />
+            <span className="hidden font-medium text-[#36485C] lg:block">
+              Sign in
+            </span>
+          </div>
+
+          <Image src={Menu} alt="Menu Button" className="lg:hidden" />
         </div>
-
-        <Image src={Menu} alt="Menu Button" className="lg:hidden" />
-      </div>
       </nav>
     </div>
 
