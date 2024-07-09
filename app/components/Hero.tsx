@@ -42,7 +42,7 @@ export function Hero() {
 
         <div className="flex w-full pt-8 justify-center gap-x-6">
           <button
-            className="bg-[#4328EB] hover:bg-blue-400 w-1/2 py-4 px-8 text-white rounded-[4px] lg:w-fit focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 w-1/2 py-4 px-8 text-white rounded-[4px] lg:w-fit focus:shadow-outline"
             onClick={handleTryNowClick}
           >
             Try it now

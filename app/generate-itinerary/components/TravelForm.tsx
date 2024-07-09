@@ -188,7 +188,7 @@ export default function TravelForm() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center mt-10">
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white py-4 px-8 rounded focus:outline-none focus:shadow-outline"
