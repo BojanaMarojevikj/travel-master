@@ -16,6 +16,7 @@ export default function TravelForm() {
   const router = useRouter();
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  const [minEndDate, setMinEndDate] = useState<Dayjs | undefined>(undefined); 
   const [cities, setCities] = useState<string[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
@@ -71,6 +72,14 @@ export default function TravelForm() {
     }
   }, [selectedCountry]);
 
+  useEffect(() => {
+    if (startDate) {
+      setMinEndDate(startDate);
+    } else {
+      setMinEndDate(undefined);
+    }
+  }, [startDate]);
+
   return (
     <div className="pt-4 lg:pt-10">
       <h2 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
@@ -124,6 +133,7 @@ export default function TravelForm() {
                   format="MM/DD/YYYY"
                   value={endDate}
                   onChange={(newValue: Dayjs | null) => setEndDate(newValue ? newValue.startOf('day') : null)}
+                  minDate={minEndDate}
                   slotProps={
                     {
                       layout:{

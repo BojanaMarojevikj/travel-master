@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Logo from "../../public/assets/Logo.png";
+import Logo from "../../public/assets/full-logo.png";
 import Facebook from "../../public/assets/Facebook.svg";
 import Twitter from "../../public/assets/X.svg";
 import Feed from "../../public/assets/Feed.svg";
@@ -9,8 +9,8 @@ export function Footer() {
     <div className="bg-blue-100">
       <div className="pt-[40px] pb-[40px] bg-blue-100">
         <div className="flex items-center justify-center gap-x-[12px]">
-          <Image src={Logo} alt="Logo" />
-          <p className="font-bold text-[#36485C] text-[17px]">Travel Master</p>
+          <Image src={Logo} alt="Logo" className="h-[3vh] w-auto"/>
+          {/* <p className="font-bold text-[#36485C] text-[17px]">Travel Master</p> */}
         </div>
 
         <p className="pt-[56px] text-center text-[14px] font-medium text-[#5F7896] sm:pt-5">
