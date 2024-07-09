@@ -43,7 +43,7 @@ export function About() {
         </div>
       </div>
 
-      <div className="relative flex justify-center mb-6 h-[40vh] h-[60vh]">
+      <div className="relative flex justify-center mb-6 h-[40vh] w-auto">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={0}

@@ -15,12 +15,14 @@ export function Navbar() {
     <div className="flex bg-blue-100 justify-center items-center">
       <nav className="flex w-full items-center justify-between px-[20px] py-[16px] lg:container lg:px-20 bg-blue-100">
         <div className="flex items-center">
-          <Image src={Logo} alt="Logo" />
+          <Image src={Logo} alt="Logo" className="h-[4vh] w-auto"/>
 
           <div className="hidden lg:flex pl-[74px] gap-x-[56px]">
             {navLinks.map((item, index) => (
-              <Link href={item.path} key={index}>
-                {item.name}
+              <Link href={item.path} key={index} className="text-[#36485C] font-medium hover:text-blue-600">
+                <p className="hover:shadow-none">
+                 {item.name}
+                </p>
             </Link>
             ))}
           </div>
