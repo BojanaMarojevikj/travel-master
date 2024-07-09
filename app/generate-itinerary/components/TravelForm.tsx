@@ -10,13 +10,16 @@ import Stack from '@mui/material/Stack';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import airplaneTravelImage from '../../../public/assets/airplane-travel.jpg'
+import Image from "next/image";
+
 
 
 export default function TravelForm() {
   const router = useRouter();
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
-  const [minEndDate, setMinEndDate] = useState<Dayjs | undefined>(undefined); 
+  const [minEndDate, setMinEndDate] = useState<Dayjs | undefined>(undefined);
   const [cities, setCities] = useState<string[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
@@ -97,8 +100,8 @@ export default function TravelForm() {
       <h2 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
         Enter Your Travel Information
       </h2>
-      <form className="bg-white rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-      {formError && (
+      <form className="rounded px-8 pt-6" onSubmit={handleSubmit}>
+        {formError && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <span className="block sm:inline"> {formError}</span>
           </div>
@@ -114,7 +117,7 @@ export default function TravelForm() {
                   onChange={(newValue: Dayjs | null) => setStartDate(newValue ? newValue.startOf('day') : null)}
                   slotProps={
                     {
-                      layout:{
+                      layout: {
                         sx: {}
                       },
                       textField: {
@@ -128,7 +131,7 @@ export default function TravelForm() {
                             '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
                             '&.Mui-focused fieldset': { border: '2px solid #2684FF', fontFamily: '__Poppins_7ef1e4' },
                           },
-                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4'  },
+                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4' },
                           '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
                           '& .MuiInputBase-root': { fontFamily: '__Poppins_7ef1e4' },
                           '% .MuiPickersCalendarHeader-label': { fontFamily: '__Poppins_7ef1e4' },
@@ -153,9 +156,9 @@ export default function TravelForm() {
                   minDate={minEndDate}
                   slotProps={
                     {
-                      layout:{
+                      layout: {
                         sx: {
-                          
+
                         }
                       },
                       textField: {
@@ -169,7 +172,7 @@ export default function TravelForm() {
                             '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
                             '&.Mui-focused fieldset': { border: '2px solid #2684FF', fontFamily: '__Poppins_7ef1e4' },
                           },
-                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4'  },
+                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4' },
                           '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
                           '& .MuiInputBase-root': { fontFamily: '__Poppins_7ef1e4' },
                           width: '100%',
@@ -231,7 +234,13 @@ export default function TravelForm() {
         </div>
       )}
 
-      <ExampleCards />
+    <div>
+        <Image src={airplaneTravelImage} alt="Airplane"/>
+    </div>
+
+    <div className="relative z-10">
+        <ExampleCards />
+    </div>
     </div>
   );
 }

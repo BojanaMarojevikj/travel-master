@@ -39,7 +39,7 @@ const ExampleCards: React.FC = () => {
   };
 
   return (
-    <div className="pt-8">
+    <div>
       <h3 className="text-center text-[24px] leading-[30px] font-medium text-[#172026] lg:text-[32px] lg:leading-[40px]">
         Example Itinerary
       </h3>
