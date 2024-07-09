@@ -234,13 +234,15 @@ export default function TravelForm() {
         </div>
       )}
 
-    <div>
-        <Image src={airplaneTravelImage} alt="Airplane"/>
-    </div>
+      <div>
+        <div>
+          <Image src={airplaneTravelImage} alt="Airplane" className="opacity-60" />
+        </div>
 
-    <div className="relative z-10">
-        <ExampleCards />
-    </div>
+        <div className="relative z-10 mt-[-100px]">
+          <ExampleCards />
+        </div>
+      </div>
     </div>
   );
 }
