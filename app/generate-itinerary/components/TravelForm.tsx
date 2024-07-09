@@ -12,6 +12,7 @@ import { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import airplaneTravelImage from '../../../public/assets/airplane-travel.jpg'
 import Image from "next/image";
+import GeneratedItineraryCards from './GeneratedItineraryCards';
 
 
 
@@ -26,8 +27,10 @@ export default function TravelForm() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [itinerary, setItinerary] = useState<any>(null);
+  const [fetchingItinerary, setFetchingItinerary] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!startDate || !endDate || !selectedCountry || !selectedCity) {
@@ -35,7 +38,45 @@ export default function TravelForm() {
       return;
     }
 
-    router.push(`/itinerary?startDate=${startDate?.format('YYYY-MM-DD')}&endDate=${endDate?.format('YYYY-MM-DD')}`);
+    setFetchingItinerary(true);
+
+    const requestBody = {
+      model: "gpt-4",
+      messages: [
+        {
+          role: "user",
+          content: `I am planning a vacation from ${startDate.format('MM/DD/YYYY')} to ${endDate.format('MM/DD/YYYY')} in ${selectedCity}, ${selectedCountry}. 
+          Please generate a travel itinerary with activities and suggestions for each day. 
+          Follow this JSON format:{"day": "number","activities": ["activity1", "activity2", "activity3"],"temperature": "string","destination": "city, country", "dates": "${startDate.format('MM/DD/YYYY')} - ${endDate.format('MM/DD/YYYY')}"}.Repeat for each day of the trip. Do not add any additional text or whitespaces in the json.`
+        }
+      ]
+    };
+
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer {api-key}`
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      const data = await response.json();
+    const responseContent = data.choices[0].message.content;
+
+    const startIndex = responseContent.indexOf('{');
+    const endIndex = responseContent.lastIndexOf('}') + 1;
+    const itineraryContent = JSON.parse(responseContent.substring(startIndex, endIndex));
+
+    setItinerary(itineraryContent);
+      setItinerary(itineraryContent);
+    } catch (error) {
+      console.error('Error generating itinerary:', error);
+    } finally {
+      setFetchingItinerary(false);
+    }
+
   };
 
   useEffect(() => {
@@ -238,11 +279,14 @@ export default function TravelForm() {
         <div>
           <Image src={airplaneTravelImage} alt="Airplane" className="opacity-60" />
         </div>
-
         <div className="relative z-10 mt-[-100px]">
-          <ExampleCards />
+          {itinerary ? (
+            <GeneratedItineraryCards itinerary={itinerary} />
+          ) : (
+            <ExampleCards />
+          )}
         </div>
       </div>
-    </div>
+      </div>
   );
 }
