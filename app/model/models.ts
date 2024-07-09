@@ -8,4 +8,6 @@ export interface Itinerary {
     day: number;
     activities: string[];
     temperature: string; 
+    destination: string;
+    dates: string;
 }
