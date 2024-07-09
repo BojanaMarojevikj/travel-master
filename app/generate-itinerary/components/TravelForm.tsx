@@ -95,12 +95,12 @@ export default function TravelForm() {
                         size: "small",
                         sx: {
                           '& label': { color: '#ABABAB', fontFamily: '__Poppins_7ef1e4' },
-                          '& label.Mui-focused': { color: '#4DCCD6', fontFamily: '__Poppins_7ef1e4' },
+                          '& label.Mui-focused': { color: '#DBEAFE', fontFamily: '__Poppins_7ef1e4' },
                           '& .MuiInput-underline:after': { borderBottomColor: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
                           '& .MuiOutlinedInput-root': {
                             '& fieldset': { border: '0.5px solid #E8E8E8', boxShadow: '0px 1px 1px 0px rgba(0, 0, 0, 0.06)', fontFamily: '__Poppins_7ef1e4' },
                             '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
-                            '&.Mui-focused fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                            '&.Mui-focused fieldset': { border: '2px solid #2684FF', fontFamily: '__Poppins_7ef1e4' },
                           },
                           '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4'  },
                           '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
@@ -140,7 +140,7 @@ export default function TravelForm() {
                           '& .MuiOutlinedInput-root': {
                             '& fieldset': { border: '0.5px solid #E8E8E8', boxShadow: '0px 1px 1px 0px rgba(0, 0, 0, 0.06)', fontFamily: '__Poppins_7ef1e4' },
                             '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
-                            '&.Mui-focused fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
+                            '&.Mui-focused fieldset': { border: '2px solid #2684FF', fontFamily: '__Poppins_7ef1e4' },
                           },
                           '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4'  },
                           '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
