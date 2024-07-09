@@ -22,11 +22,23 @@ export default function TravelForm() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!startDate || !endDate || !selectedCountry || !selectedCity) {
+      setFormError('Please fill out all fields.');
+      return;
+    }
+
     router.push(`/itinerary?startDate=${startDate?.format('YYYY-MM-DD')}&endDate=${endDate?.format('YYYY-MM-DD')}`);
   };
+
+  useEffect(() => {
+    setFormError(null);
+  }, [startDate, endDate, selectedCountry, selectedCity]);
+
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -86,6 +98,11 @@ export default function TravelForm() {
         Enter Your Travel Information
       </h2>
       <form className="bg-white rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+      {formError && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span className="block sm:inline"> {formError}</span>
+          </div>
+        )}
         <div className="flex flex-row gap-4 mb-4">
           <div className="w-1/4">
             <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
