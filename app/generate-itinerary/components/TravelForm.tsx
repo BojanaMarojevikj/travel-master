@@ -281,7 +281,7 @@ export default function TravelForm() {
         </div>
         <div className="relative z-10 mt-[-100px]">
           {fetchingItinerary ? (
-            <div>
+            <div className="mb-20">
               <h3 className="text-center text-[24px] leading-[30px] font-medium text-[#172026] lg:text-[32px] lg:leading-[40px]">
                 Generating Itinerary...
               </h3>
