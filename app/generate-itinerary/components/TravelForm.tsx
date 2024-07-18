@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Country } from '../../model/models';
+import { Country, ItineraryDay } from '../../model/models';
 import Select from 'react-select';
 import ExampleCards from './ExampleCards';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,6 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import airplaneTravelImage from '../../../public/assets/airplane-travel.jpg'
 import Image from "next/image";
 import GeneratedItineraryCards from './GeneratedItineraryCards';
+import '../effects.css';
 
 
 
@@ -27,7 +28,7 @@ export default function TravelForm() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>(null);
-  const [itinerary, setItinerary] = useState<any>(null);
+  const [itinerary, setItinerary] = useState<ItineraryDay[] | null>(null);
   const [fetchingItinerary, setFetchingItinerary] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,8 +47,8 @@ export default function TravelForm() {
         {
           role: "user",
           content: `I am planning a vacation from ${startDate.format('MM/DD/YYYY')} to ${endDate.format('MM/DD/YYYY')} in ${selectedCity}, ${selectedCountry}. 
-          Please generate a travel itinerary with activities and suggestions for each day. 
-          Follow this JSON format:{"day": "number","activities": ["activity1", "activity2", "activity3"],"temperature": "string","destination": "city, country", "dates": "${startDate.format('MM/DD/YYYY')} - ${endDate.format('MM/DD/YYYY')}"}.Repeat for each day of the trip. Do not add any additional text or whitespaces in the json.`
+          Please generate a travel itinerary with activities and suggestions for each day. The returned string should represent a list of unnamed objects like: [{}, {}, {}]. 
+          Each object should contain: {activities:[activity1, activity2, activity3], temperature, date}. Do not add any additional text or whitespaces.`
         }
       ]
     };
@@ -63,14 +64,13 @@ export default function TravelForm() {
       });
 
       const data = await response.json();
-    const responseContent = data.choices[0].message.content;
+      const responseContent = data.choices[0].message.content;
+      console.log(responseContent)
 
-    const startIndex = responseContent.indexOf('{');
-    const endIndex = responseContent.lastIndexOf('}') + 1;
-    const itineraryContent = JSON.parse(responseContent.substring(startIndex, endIndex));
+      const itineraryData: ItineraryDay[] = JSON.parse(responseContent);
+      console.log(itineraryData)
+      setItinerary(itineraryData);
 
-    setItinerary(itineraryContent);
-      setItinerary(itineraryContent);
     } catch (error) {
       console.error('Error generating itinerary:', error);
     } finally {
@@ -277,16 +277,24 @@ export default function TravelForm() {
 
       <div>
         <div>
-          <Image src={airplaneTravelImage} alt="Airplane" className="opacity-60" />
+          <Image src={airplaneTravelImage} alt="Airplane" className={`opacity-60 ${fetchingItinerary ? 'fade-animation' : ''}`} />
         </div>
         <div className="relative z-10 mt-[-100px]">
-          {itinerary ? (
-            <GeneratedItineraryCards itinerary={itinerary} />
+          {fetchingItinerary ? (
+            <div>
+              <h3 className="text-center text-[24px] leading-[30px] font-medium text-[#172026] lg:text-[32px] lg:leading-[40px]">
+                Generating Itinerary...
+              </h3>
+            </div>
           ) : (
-            <ExampleCards />
+            itinerary ? (
+              <GeneratedItineraryCards itinerary={itinerary} destination={`${selectedCity}, ${selectedCountry}`} />
+            ) : (
+              <ExampleCards />
+            )
           )}
         </div>
       </div>
-      </div>
+    </div>
   );
 }

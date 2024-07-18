@@ -4,10 +4,8 @@ export interface Country {
     };
 }
 
-export interface Itinerary {
-    day: number;
+export interface ItineraryDay {
     activities: string[];
     temperature: string; 
-    destination: string;
-    dates: string;
+    date: string;
 }
