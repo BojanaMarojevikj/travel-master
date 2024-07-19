@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItineraryDay } from '../../model/models';
+import { ItineraryDay } from '../../models';
 import { WbSunny, Cloud, AcUnit, LocationOn, DateRange } from '@mui/icons-material'; 
 import dayjs from 'dayjs';
 

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Country, ItineraryDay } from '../../model/models';
+import { Country, ItineraryDay } from '../../models';
 import Select from 'react-select';
 import ExampleCards from './ExampleCards';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
