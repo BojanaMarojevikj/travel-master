@@ -13,7 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import airplaneTravelImage from '../../../public/assets/airplane-travel.jpg'
 import Image from "next/image";
 import GeneratedItineraryCards from './GeneratedItineraryCards';
-import '../effects.css';
+import '../styles/effects.css';
 
 
 
