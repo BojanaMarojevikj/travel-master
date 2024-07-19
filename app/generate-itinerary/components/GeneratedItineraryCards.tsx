@@ -2,6 +2,7 @@ import React from 'react';
 import { ItineraryDay } from '../../models';
 import { WbSunny, Cloud, AcUnit, LocationOn, DateRange } from '@mui/icons-material'; 
 import dayjs from 'dayjs';
+import '../styles/effects.css';
 
 interface GeneratedItineraryCardsProps {
   itinerary: ItineraryDay[];
@@ -25,7 +26,7 @@ const GeneratedItineraryCards: React.FC<GeneratedItineraryCardsProps> = ({ itine
   };
 
   return (
-    <div>
+    <div className="fade-in">
       <h3 className="text-center text-[24px] leading-[30px] font-medium text-[#172026] lg:text-[32px] lg:leading-[40px]">
         Your Generated Itinerary
       </h3>
