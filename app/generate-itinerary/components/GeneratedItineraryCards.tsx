@@ -1,7 +1,9 @@
 import React from 'react';
 import { ItineraryDay } from '../../models';
-import { WbSunny, Cloud, AcUnit, LocationOn, DateRange } from '@mui/icons-material'; 
+import { WbSunny, Cloud, AcUnit, LocationOn, DateRange, PictureAsPdf } from '@mui/icons-material'; 
 import dayjs from 'dayjs';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import '../styles/effects.css';
 
 interface GeneratedItineraryCardsProps {
@@ -41,6 +43,14 @@ const GeneratedItineraryCards: React.FC<GeneratedItineraryCardsProps> = ({ itine
             {formatDate(itinerary[0].date)} - {formatDate(itinerary[itinerary.length - 1].date)}
           </p>
         </div>
+      </div>
+      <div className="flex justify-center mb-6">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded inline-flex items-center"
+        >
+          <PictureAsPdf className="mr-2" />
+          Download as PDF
+        </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
         {itinerary.map((itineraryItem, index) => (
