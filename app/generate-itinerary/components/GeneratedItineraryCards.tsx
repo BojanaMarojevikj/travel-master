@@ -2,8 +2,6 @@ import React from 'react';
 import { ItineraryDay } from '../../models';
 import { WbSunny, Cloud, AcUnit, LocationOn, DateRange, PictureAsPdf } from '@mui/icons-material'; 
 import dayjs from 'dayjs';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
 import '../styles/effects.css';
 
 interface GeneratedItineraryCardsProps {

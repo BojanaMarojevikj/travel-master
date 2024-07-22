@@ -19,7 +19,7 @@ export function SignIn() {
   };
 
   return (
-    <div className="pt-4 lg:pt-10">
+    <div className="pt-4 lg:pt-10 mb-20">
       <div className="px-[20px] lg:px-[280px]">
         <div className="relative h-[10vh] w-auto mx-auto">
           <Image src={Logo} alt="Logo" layout="fill" objectFit="contain" />
@@ -29,6 +29,7 @@ export function SignIn() {
         </div>
         <form className="pt-6 space-y-4 flex flex-col items-center">
           <div className="w-full max-w-md">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               name="email"
@@ -39,6 +40,7 @@ export function SignIn() {
             />
           </div>
           <div className="w-full max-w-md">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               name="password"
