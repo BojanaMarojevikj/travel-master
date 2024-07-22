@@ -37,11 +37,19 @@ const GeneratedItineraryCards: React.FC<GeneratedItineraryCardsProps> = ({ itine
     yOffset += 10;
   
     itinerary.forEach((itineraryItem, index) => {
+      if (yOffset > 270) {
+        doc.addPage();
+        yOffset = 20; 
+      }
       doc.text(`Day ${index + 1} - ${formatDate(itineraryItem.date)}`, 10, yOffset);
       yOffset += 10;
       doc.text(`Temperature: ${itineraryItem.temperature}`, 10, yOffset);
       yOffset += 10;
       itineraryItem.activities.forEach((activity, idx) => {
+        if (yOffset > 270) {
+          doc.addPage();
+          yOffset = 20;
+        }
         doc.text(`- ${activity}`, 20, yOffset);
         yOffset += 10;
       });
@@ -50,6 +58,7 @@ const GeneratedItineraryCards: React.FC<GeneratedItineraryCardsProps> = ({ itine
   
     doc.save('itinerary.pdf');
   };
+  
 
   return (
     <div className="fade-in">
