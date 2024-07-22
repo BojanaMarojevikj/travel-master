@@ -1,7 +1,8 @@
 import React from 'react';
 import { ItineraryDay } from '../../models';
-import { WbSunny, Cloud, AcUnit, LocationOn, DateRange, PictureAsPdf } from '@mui/icons-material'; 
+import { WbSunny, Cloud, AcUnit, LocationOn, DateRange, PictureAsPdf } from '@mui/icons-material';
 import dayjs from 'dayjs';
+import jsPDF from 'jspdf';
 import '../styles/effects.css';
 
 interface GeneratedItineraryCardsProps {
@@ -13,16 +14,41 @@ const GeneratedItineraryCards: React.FC<GeneratedItineraryCardsProps> = ({ itine
   const getTemperatureIcon = (temperature: string) => {
     const numericTemperature = parseInt(temperature);
     if (numericTemperature >= 20) {
-      return <WbSunny />; 
+      return <WbSunny />;
     } else if (numericTemperature < 20 && numericTemperature > 10) {
       return <Cloud />;
     } else {
-      return <AcUnit />; 
+      return <AcUnit />;
     }
   };
 
   const formatDate = (date: string) => {
     return dayjs(date).format('MMMM D, YYYY');
+  };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    let yOffset = 20;
+  
+    doc.setFontSize(16);
+    doc.text('Your Generated Itinerary', 10, 10);
+    doc.setFontSize(12);
+    doc.text(`Destination: ${destination}`, 10, yOffset);
+    yOffset += 10;
+  
+    itinerary.forEach((itineraryItem, index) => {
+      doc.text(`Day ${index + 1} - ${formatDate(itineraryItem.date)}`, 10, yOffset);
+      yOffset += 10;
+      doc.text(`Temperature: ${itineraryItem.temperature}`, 10, yOffset);
+      yOffset += 10;
+      itineraryItem.activities.forEach((activity, idx) => {
+        doc.text(`- ${activity}`, 20, yOffset);
+        yOffset += 10;
+      });
+      yOffset += 10;
+    });
+  
+    doc.save('itinerary.pdf');
   };
 
   return (
@@ -45,6 +71,7 @@ const GeneratedItineraryCards: React.FC<GeneratedItineraryCardsProps> = ({ itine
       <div className="flex justify-center mb-6">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded inline-flex items-center"
+          onClick={downloadPDF}
         >
           <PictureAsPdf className="mr-2" />
           Download as PDF
