@@ -28,15 +28,15 @@ export function Navbar() {
         </div>
 
         <div className="flex gap-x-5">
-          <p className="hidden lg:block font-medium text-[#36485C] pr-[56px]">
-            Register
-          </p>
+          <Link href="/register" className="hidden lg:block font-medium text-[#36485C] pr-[56px] hover:text-blue-500">
+            <p className="hover:shadow-none hover:border-b-5 hover:border-blue-500 hover:font-semibold">Register</p>
+          </Link>
 
           <div className="flex items-center gap-x-2">
             <Image src={User} alt="User Profile" />
-            <span className="hidden font-medium text-[#36485C] lg:block">
-              Sign in
-            </span>
+            <Link href="/sign-in" className="hidden font-medium text-[#36485C] lg:block hover:text-blue-500">
+            <p className="hover:shadow-none hover:border-b-5 hover:border-blue-500 hover:font-semibold">Sign In</p>
+            </Link>
           </div>
 
           <Image src={Menu} alt="Menu Button" className="lg:hidden" />
