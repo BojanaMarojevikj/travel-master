@@ -10,7 +10,6 @@ export function Footer() {
       <div className="pt-[40px] pb-[40px] bg-blue-100">
         <div className="flex items-center justify-center gap-x-[12px]">
           <Image src={Logo} alt="Logo" className="h-[3vh] w-auto"/>
-          {/* <p className="font-bold text-[#36485C] text-[17px]">Travel Master</p> */}
         </div>
 
         <p className="pt-[56px] text-center text-[14px] font-medium text-[#5F7896] sm:pt-5">

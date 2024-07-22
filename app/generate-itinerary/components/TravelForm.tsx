@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Country, ItineraryDay } from '../../models';
 import Select from 'react-select';
@@ -8,7 +7,7 @@ import ExampleCards from './ExampleCards';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Stack from '@mui/material/Stack';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import airplaneTravelImage from '../../../public/assets/airplane-travel.jpg'
 import Image from "next/image";
@@ -16,9 +15,7 @@ import GeneratedItineraryCards from './GeneratedItineraryCards';
 import '../styles/effects.css';
 
 
-
 export default function TravelForm() {
-  const router = useRouter();
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [minEndDate, setMinEndDate] = useState<Dayjs | undefined>(undefined);
@@ -136,6 +133,14 @@ export default function TravelForm() {
     }
   }, [startDate]);
 
+  const shortcuts = [
+    { label: 'Today', getValue: () => dayjs() },
+    { label: 'Tomorrow', getValue: () => dayjs().add(1, 'day') },
+    { label: 'Next Weekend', getValue: () => dayjs().day(6).add(7, 'day') },
+    { label: 'Christmas', getValue: () => dayjs().month(11).date(25) },
+    { label: 'New Year', getValue: () => dayjs().month(0).date(1).add(1, 'year') }
+  ];
+
   return (
     <div className="pt-4 lg:pt-10">
       <h2 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
@@ -156,32 +161,37 @@ export default function TravelForm() {
                   format="MM/DD/YYYY"
                   value={startDate}
                   onChange={(newValue: Dayjs | null) => setStartDate(newValue ? newValue.startOf('day') : null)}
+                  className="custom-date-picker"
                   slotProps={
                     {
-                      layout: {
-                        sx: {}
-                      },
                       textField: {
+                        className: "custom-date-picker",
                         size: "small",
-                        sx: {
-                          '& label': { color: '#ABABAB', fontFamily: '__Poppins_7ef1e4' },
-                          '& label.Mui-focused': { color: '#DBEAFE', fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiInput-underline:after': { borderBottomColor: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiOutlinedInput-root': {
-                            '& fieldset': { border: '0.5px solid #E8E8E8', boxShadow: '0px 1px 1px 0px rgba(0, 0, 0, 0.06)', fontFamily: '__Poppins_7ef1e4' },
-                            '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
-                            '&.Mui-focused fieldset': { border: '2px solid #2684FF', fontFamily: '__Poppins_7ef1e4' },
-                          },
-                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiInputBase-root': { fontFamily: '__Poppins_7ef1e4' },
-                          '% .MuiPickersCalendarHeader-label': { fontFamily: '__Poppins_7ef1e4' },
-                          width: '100%',
+                      },
+                      calendarHeader : {
+                        className: "custom-date-picker",
+                      },
+                      shortcuts: {
+                        className: "custom-date-picker",
+                        items: shortcuts,
+                      },
+                      monthButton : {
+                        sx : {
+                          fontFamily: '__Poppins_7ef1e4'
+                        }
+                      },
+                      day : {
+                        sx : {
+                          fontFamily: '__Poppins_7ef1e4'
+                        }
+                      },
+                      yearButton : {
+                        sx : {
+                          fontFamily: '__Poppins_7ef1e4'
                         }
                       }
                     }
                   }
-
                 />
               </Stack>
             </LocalizationProvider>
@@ -195,28 +205,33 @@ export default function TravelForm() {
                   value={endDate}
                   onChange={(newValue: Dayjs | null) => setEndDate(newValue ? newValue.startOf('day') : null)}
                   minDate={minEndDate}
+                  className="custom-date-picker"
                   slotProps={
                     {
-                      layout: {
-                        sx: {
-
+                      textField: {
+                        className: "custom-date-picker",
+                        size: "small",
+                      },
+                      calendarHeader : {
+                        className: "custom-date-picker",
+                      },
+                      shortcuts: {
+                        className: "custom-date-picker",
+                        items: shortcuts
+                      },
+                      monthButton : {
+                        sx : {
+                          fontFamily: '__Poppins_7ef1e4'
                         }
                       },
-                      textField: {
-                        size: "small",
-                        sx: {
-                          '& label': { color: '#ABABAB', fontFamily: '__Poppins_7ef1e4' },
-                          '& label.Mui-focused': { color: '#4DCCD6', fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiInput-underline:after': { borderBottomColor: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiOutlinedInput-root': {
-                            '& fieldset': { border: '0.5px solid #E8E8E8', boxShadow: '0px 1px 1px 0px rgba(0, 0, 0, 0.06)', fontFamily: '__Poppins_7ef1e4' },
-                            '&:hover fieldset': { border: '0.5px solid #E8E8E8', fontFamily: '__Poppins_7ef1e4' },
-                            '&.Mui-focused fieldset': { border: '2px solid #2684FF', fontFamily: '__Poppins_7ef1e4' },
-                          },
-                          '& .MuiInputBase-input': { fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiButtonBase-root': { fontFamily: '__Poppins_7ef1e4' },
-                          '& .MuiInputBase-root': { fontFamily: '__Poppins_7ef1e4' },
-                          width: '100%',
+                      day : {
+                        sx : {
+                          fontFamily: '__Poppins_7ef1e4'
+                        }
+                      },
+                      yearButton : {
+                        sx : {
+                          fontFamily: '__Poppins_7ef1e4'
                         }
                       }
                     }

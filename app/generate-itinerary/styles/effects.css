@@ -22,3 +22,43 @@
       opacity: 1;
     }
   }
+
+.custom-date-picker .MuiFormLabel-root {
+  color: #ABABAB;
+  font-family: '__Poppins_7ef1e4';
+}
+.custom-date-picker .MuiFormLabel-root.Mui-focused {
+  color: #DBEAFE;
+  font-family: '__Poppins_7ef1e4';
+}
+.custom-date-picker .MuiInput-underline:after {
+  border-bottom-color: #E8E8E8;
+  border-bottom-width: 0.5px;
+  font-family: '__Poppins_7ef1e4';
+}
+.custom-date-picker .MuiOutlinedInput-root {
+  border: 0.5px solid #E8E8E8;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.06);
+  font-family: '__Poppins_7ef1e4';
+}
+.custom-date-picker .MuiOutlinedInput-root:hover fieldset {
+  border: 0.5px solid #E8E8E8;
+  font-family: '__Poppins_7ef1e4';
+}
+.custom-date-picker .MuiOutlinedInput-root.Mui-focused fieldset {
+  border: 2px solid #2684FF;
+  font-family: '__Poppins_7ef1e4';
+}
+.custom-date-picker .MuiInputBase-input,
+.custom-date-picker .MuiButtonBase-root,
+.custom-date-picker .MuiInputBase-root,
+.custom-date-picker .MuiPickersCalendarHeader-label,
+.custom-date-picker .MuiChip-label,
+.custom-date-picker .MuiPickersDay-root
+ {
+  font-family: '__Poppins_7ef1e4';
+}
+
+.custom-date-picker .MuiTextField-root {
+  width: 100%;
+}

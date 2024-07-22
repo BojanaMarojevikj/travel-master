@@ -26,9 +26,6 @@ export function About() {
         <div className="relative h-[10vh] w-auto mx-auto">
           <Image src={Logo} alt="Logo" layout="fill" objectFit="contain" />
         </div>
-        {/* <h1 className="text-center text-[32px] leading-[40px] font-medium text-[#172026] lg:text-[64px] lg:leading-[72px]">
-          Travel Master
-        </h1> */}
         <p className="text-center pt-6 text-[#36485C] lg:text-[18px] lg:leading-7">
           Plan your dream vacation effortlessly by simply entering your departure and arrival dates, along with your desired location. Our innovative service powered by OpenAI creates personalized itineraries that include must-visit attractions, delicious dining options, and real-time weather updates. Whether you're exploring new destinations or revisiting favorites, let us help you make the most of your travel experience. Get started now and embark on unforgettable adventures!
         </p>
