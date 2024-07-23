@@ -10,6 +10,7 @@ Travel Master is a web application designed to help users plan their vacations b
 - **Itinerary Generation:** Personalized travel itineraries are created using the OpenAI API, providing tailored daily plans based on user input.
 - **Form Handling:** Robust form validation and error handling ensure a smooth user experience.
 - **Responsive Design:** The app is designed to be mobile-friendly and visually appealing across various devices.
+- **Download Itinerary as PDF:** Users can download their generated itinerary with a PDF format.
 
 ## Technologies Used
 
