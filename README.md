@@ -26,7 +26,7 @@ Travel Master is a web application designed to help users plan their vacations b
 ## Usage
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). In order for the itinerary generator to work you need to insert your own OpenAI API key in `app/generate-itinerary/TravelForm.tsx`.
-First, run the development server:
+Then, run the development server:
 
 ```bash
 npm run dev
